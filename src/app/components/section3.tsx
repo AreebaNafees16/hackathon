@@ -23,7 +23,7 @@ export default function Section3() {
         </h1>
 
         {/* Order Now Button */}
-        <button className="border-2 border-gray-800 text-[#000000] text-sm sm:text-lg px-6 sm:mb-6 mb-16 py-2 hover:bg-gray-800 hover:text-white transition-colors duration-300">
+        <button className="border-2 border-gray-800 text-[#000000] text-sm sm:text-lg px-6 sm:mb-6 mb-16 py-2 hover:bg-gray-700 hover:text-white transition-colors duration-300">
           Order Now
         </button>
       </div>

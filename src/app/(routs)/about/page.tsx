@@ -71,7 +71,7 @@ export default function AboutSection() {
                             Be part of a community that values creativity and connection. Let us help you make
                             every space your own with our expert design tips and exclusive collections.
                         </p>
-                        <button className="bg- text-black py-3 px-8 rounded-lg border hover:bg-gray-400 transition">
+                        <button className="bg- text-black py-3 px-8 rounded-lg border  hover:text-white hover:bg-gray-700 transition">
                             Discover Our Collection
                         </button>
                     </div>

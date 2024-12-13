@@ -1,13 +1,40 @@
-import React from 'react';
+"use client"
 import Link from 'next/link';
-
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { BsFacebook } from 'react-icons/bs';
-import { FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { BsBagX, BsFacebook } from 'react-icons/bs';
+import { FaLinkedin, FaStar, FaStarHalf } from 'react-icons/fa';
 import { AiOutlineRight } from 'react-icons/ai';
+import { AiFillTwitterCircle } from "react-icons/ai";
+import { TfiHeart } from "react-icons/tfi";
 import { IoIosArrowForward } from "react-icons/io";
+import { RxCrossCircled, RxHeart } from 'react-icons/rx';
+import Navbar from '@/app/components/navbar';
+import { MdCancel } from 'react-icons/md';
 
-function AsgaardSofa() {
+
+export default function AsgaardSofa() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: 'Asgaard Sofa',
+      price: 'Rs. 250,000.00',
+      image: '/item14.png',
+      quantity: 1,
+    },
+  ]);
+
+  const handleAddToCart = () => {
+    setIsCartOpen(true);
+  };
+
+  const handleRemoveItem = (id: number) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
   const products = [
     { id: 1, name: "Trenton modular sofa_3", price: "25,000.00", image: "/item1.png" },
     {
@@ -41,16 +68,22 @@ function AsgaardSofa() {
       image: "/item4.png",
     },
   ];
-    const images = ["/shop.jpeg", "/shop.jpeg", "/shop.jpeg"]; // Replace with correct image paths
+   
     const sizes = ["L", "XL", "XS"];
-    const colors = ["bg-purple-700", "bg-blue-500", "bg-green-400"]; // Add color classes here
+    const colors = ["bg-[#816DFA]", "bg-black", "bg-[#CDBA7B]"]; // Add color classes here
+
 
     return (
-      <div className="w-full">
+
+      <div className="w-full md:ml-7">
+        <Navbar />
       {/* Header Section */}
-      <div className="relative z-10 w-[1440px] h-[100px] mx-auto flex items-center justify-start bg-white px-6 lg:px-20">
+      
+      <div className="relative z-10 w-[1440px]  sm:h-[170px] h-[200px] mx-auto flex items-center justify-start bg-white px-6 lg:px-20">
+        
         {/* Breadcrumb Navigation */}
-        <div className="relative z-10 flex items-center space-x-2 text-black text-sm mt-44 mb-16">
+        <div className="relative z-10 flex items-center space-x-2 text-black text-sm mt-48 mb-28">
+        
           <Link href="/" className="hover:text-blue-500 ml-4">
             Home
           </Link>
@@ -71,43 +104,43 @@ function AsgaardSofa() {
   {/* Small Images Column */}
   <div className="flex md:flex-col gap-4 md:gap-6 p-4 rounded-lg">
     <Image
-      src="/sm1.png"
+      src="/s1.png"
       alt="Sofa Image"
-      height={70}
-      width={70}
-      className="rounded-lg object-cover bg-[#FFF9E5]"
+      height={76}
+      width={80}
+      className="rounded-lg w-[70px] h-[76px] bg-[#FFF9E5]"
     />
     <Image
       src="/sm2.png"
       alt="Sofa Image"
-      height={70}
-      width={70}
-      className="rounded-lg object-cover bg-[#FFF9E5]"
+      height={76}
+      width={80}
+      className="rounded-lg w-[70px] h-[76px] bg-[#FFF9E5]"
     />
     <Image
       src="/sm3.png"
       alt="Sofa Image"
-      height={70}
-      width={70}
-      className="rounded-lg object-cover bg-[#FFF9E5]"
+      height={76}
+      width={80}
+      className="rounded-lg w-[70px] h-[76px] bg-[#FFF9E5]"
     />
     <Image
       src="/sm4.png"
       alt="Sofa Image"
-      height={70}
-      width={70}
-      className="rounded-lg object-cover bg-[#FFF9E5]"
+      height={76}
+      width={80}
+      className="rounded-lg w-[70px] h-[76px] bg-[#FFF9E5]"
     />
   </div>
 
   {/* Medium Image */}
-  <div className="flex-1 flex justify-center items-center">
+  <div className="rounded-lg flex justify-center items-center w-[400px] h-[450px] bg-[#FFF9E5] md:mt-3">
     <Image
       src="/item14.png"
       alt="Main Sofa Image"
       height={200}
-      width={400}
-      className="rounded-lg bg-[#FFF9E5] w-full md:w-auto md:mb-52 md:mr-32"
+      width={600}
+      className="rounded-lg w-full md:w-auto"
     />
   </div>
 </div>
@@ -117,11 +150,16 @@ function AsgaardSofa() {
     <h3 className="text-2xl font-medium">Asgaard Sofa</h3>
     <p className="text-xl text-gray-500">Rs: 250,000.00</p>
     <div className="flex items-center space-x-2 mt-2">
-      <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
-      <span className="text-gray-700">(5 Customer Reviews)</span>
+    <FaStar size={20} className="text-[#FFDA5B]"/>
+    <FaStar size={20} className="text-[#FFDA5B]"/>
+    <FaStar size={20} className="text-[#FFDA5B]"/>
+    <FaStar size={20} className="text-[#FFDA5B]"/>
+    <FaStarHalf size={20} className="text-[#FFDA5B]"/>
+      <span className="text-[#9F9F9F] text-2xl">|</span>
+      <span className="text-[#9F9F9F]">(5 Customer Reviews)</span>
     </div>
     <p className="mt-4 text-gray-700">
-    Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.
+    Setting the bar as one of the loudest speakers in its class, the Kilburn <br /> is a compact, stout-hearted hero with a well-balanced <br /> audio which boasts a clear midrange and extended highs for a <br /> sound.
 
 .
     </p>
@@ -149,20 +187,113 @@ function AsgaardSofa() {
       </div>
     </div>
 
-    <div className="flex items-center gap-4 mt-6">
-      <div className="flex items-center border p-2 gap-4 rounded-md">
+    <div className="flex items-center gap-4 mt-6 mb-5">
+      <div className="flex items-center border p-3 gap-4 rounded-md hover:outline-red-500">
         <button>-</button>
         <span>1</span>
         <button>+</button>
       </div>
-      <button className="bg-primary text-black border rounded-md px-6 py-2 hover:bg-opacity-90">
+
+      <button 
+     onClick={handleAddToCart}
+      className="bg-primary text-black border rounded-md px-8 py-3 transition-all duration-300 hover:outline hover:outline-2 hover:outline-black">
         Add To Cart
       </button>
     </div>
-
-    <hr className="my-6" />
-
+    {/* Cart Sidebar */}
     
+    {isCartOpen && (
+      
+        <div className="fixed top-0 right-0 w-96 h-full bg-white p-6 shadow-lg"style={{ zIndex: 9999 }}>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-xl font-semibold">Shopping Cart</h1>
+            
+            <button
+              onClick={() => setIsCartOpen(false)}
+              className="text-xl font-bold text-gray-400"
+            >
+              <BsBagX />
+              {/* &times; */}
+            </button>
+          </div>
+          <div className="w-10/12 border-t-2 border-[#D9D9D9] my-8"></div>
+
+          <div className="space-y-4">
+            {cartItems.map((item) => (
+              <div key={item.id} className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-20 object-cover rounded-lg bg-[#FBEBB5] mt-2"
+                  />
+                  <div>
+                    <p className="font-medium">{item.name}</p>
+                    <div className="space-x-2">
+                    <span >1</span>
+                    <span> X </span>
+                    <span className="text-[#B88E2F]">Rs. 250,000.00</span>
+                    </div>
+                    {/* <p className="mt-3 justify-between">
+                      {item.quantity} X 
+                    </p>
+                    <span className='justify-between'>
+                    {item.price}
+                    </span> */}
+                  </div>
+                </div>
+                <span
+                  // onClick={() => handleRemoveItem(item.id)}
+                  className="text-xl text-[#9F9F9F] "
+                >
+                  <MdCancel />
+                  {/* &times; */}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-44 pt-48">
+            <div className="flex justify-between text-lg">
+              <span>Subtotal</span>
+              <span className="text-[#B88E2F] md:mr-4">
+                Rs. 250,000.00
+                {/* {cartItems
+                  .reduce(
+                    (total, item) =>
+                      total +
+                      parseFloat(
+                        item.price.replace('Rs. ', '').replace(',','')
+                      ) * item.quantity,
+                    0
+                  )
+                  .toLocaleString()} */}
+              </span>
+            </div>
+            <div className="w-full border-t-2 border-[#D9D9D9] my-8"></div>
+            <div className="mt-4 flex gap-14">
+              <button className="bg-white text-black px-7 py-2 border border-black rounded-full transition-all duration-300 hover:outline hover:outline-2 hover:outline-gray-300">
+                View Cart
+              </button>
+              <Link href='/checkout'>
+              <button className="bg-white text-black border border-black rounded-full px-7 py-2 transition-all duration-300 hover:outline hover:outline-2 hover:outline-gray-300">
+                Checkout
+              </button>
+              </Link>
+            </div>
+          </div>
+        </div>      
+    )}
+        {/* Overlay */}
+        {isCartOpen && (
+        <div
+          onClick={toggleCart}
+          className="fixed inset-0 bg-black bg-opacity-50 z-50" style={{ zIndex: 9998 }}
+        ></div>
+        )}
+    {/* Divider */}
+  <div className="w-full border-t-2 border-[#D9D9D9] my-8"></div>
+
       <div className="flex justify mb-2">
         <span>SKU</span>
         <span className='ml-11'>:</span>
@@ -181,10 +312,13 @@ function AsgaardSofa() {
       <div className="flex justify items-center">
         <span>Share</span>
         <span className='ml-8'>:</span>
-        <div className="flex space-x-2 ml-2">
+        <div className="flex space-x-3 ml-2">
           <BsFacebook className="text-black cursor-pointer" />
           <FaLinkedin className="text-black cursor-pointer" />
-          <FaTwitter className="text-black cursor-pointer" />
+          <AiFillTwitterCircle size={19} className="text-black cursor-pointer" />
+          <div>
+          <RxHeart size={25} className="text-red-400 ml-40"/>
+          </div>
         </div>
       </div>
   
@@ -205,28 +339,28 @@ function AsgaardSofa() {
   </div>
 
   {/* Description Paragraph */}
-  <p className="text-[#9F9F9F] mb-8 md:mx-40">
+  <p className="text-[#9F9F9F] mb-8 md:mx-36">
   Embodying the raw, wayward spirit of rock ‘n’ roll, the Kilburn portable active stereo speaker takes the unmistakable look and sound of Marshall, unplugs the chords, and takes the show on the road.
   </p>
-  <p className="text-[#9F9F9F] mb-8 md:mx-40">
+  <p className="text-[#9F9F9F] mb-8 md:mx-36">
   Weighing in under 7 pounds, the Kilburn is a lightweight piece of vintage styled engineering. Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound that is both articulate and pronounced. The analogue knobs allow you to fine tune the controls to your personal preferences while the guitar-influenced leather strap enables easy and stylish travel.
   </p>
 
   {/* Two Images with Yellow Background */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg md:ml-40 md:mr-28">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg md:ml-24 md:mr-20">
   <Image
     src="/p1.png"
     alt="Furniture Image 1"
     height={400}
     width={400}
-    className="rounded-lg bg-yellow-100 w-full"
+    className="rounded-lg w-[605px] h-[348px] bg-[#FFF9E5]"
   />
   <Image
     src="/p2.png"
     alt="Furniture Image 2"
     height={400}
     width={400}
-    className="rounded-lg bg-yellow-100 w-full"
+    className="rounded-lg w-[605px] h-[348px] bg-[#FFF9E5]"
   />
 </div>
 
@@ -267,8 +401,7 @@ function AsgaardSofa() {
         </button>
       </div>
             </div>
-        </div>
+            </div>
+        
     );
 }
-
-export default AsgaardSofa;

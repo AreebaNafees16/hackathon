@@ -40,6 +40,7 @@ export default function Navbar() {
             height={60}
             className="cursor-pointer"
           />
+          <span>FURT</span>
         </div>
 
         {/* Navigation Links for Desktop */}
@@ -68,10 +69,33 @@ export default function Navbar() {
 
         {/* Icons */}
         <div className="flex 1 lg:gap-4 space-x-7 text-2xl text-black lg:mr-10">
-          <BsPerson className="hover:text-blue-500 cursor-pointer" />
-          <IoSearchOutline className="hover:text-blue-500 cursor-pointer" />
+          {/* <BsPerson className="hover:text-blue-500 cursor-pointer" /> */}
+               {/* Replace User Icon with Image */}
+               <Link href='/myaccount'>
+               <img 
+            src="/person2.png" 
+            alt="Profile Icon" 
+            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
+          />
+          </Link>
+                <img 
+            src="/search.png" 
+            alt="Profile Icon" 
+            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
+          />
+                <img 
+            src="/heart.png" 
+            alt="Profile Icon" 
+            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
+          />
+                <img 
+            src="/cart.png" 
+            alt="Profile Icon" 
+            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
+          />
+          {/* <IoSearchOutline className="hover:text-blue-500 cursor-pointer" />
           <AiOutlineHeart className="hover:text-blue-500 cursor-pointer" />
-          <BsCart3 className="hover:text-blue-500 cursor-pointer" />
+          <BsCart3 className="hover:text-blue-500 cursor-pointer" /> */}
         </div>
       </div>
 
