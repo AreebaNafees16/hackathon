@@ -120,7 +120,7 @@ export default function ShopPage() {
         ))}
       </section> */}
 
-<section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6 py-8 sm:py-12 sm:ml-4 ml-16">
+<section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8  sm:pr-14 px-4 sm:px-5 py-8 sm:py-12 sm:ml-0 ml-16">
   {products.map((product) => (
     <div key={product.id} className="lg:text-left rounded-lg p-4">
       {/* Check if the product is Asgaard Sofa and add link only for that product */}
@@ -176,26 +176,8 @@ export default function ShopPage() {
 
       {/* Features Section */}
       <Feature />
-      {/* <section className="w-full sm:h-[300px] h-[350px] bg-[#FAF4F4] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 sm:px-16 py-12 text-left">
-        <div>
-          <h3 className="text-2xl sm:text-4xl text-black mb-2 md:mt-12">Free Delivery</h3>
-          <p className="text-[#9F9F9F] text-sm sm:text-lg">
-            For all orders over $50, consectetur <br /> adipiscing elit.
-          </p>
-        </div>
-        <div>
-          <h3 className="text-2xl sm:text-4xl text-black mb-2 md:mt-12">90 Days Return</h3>
-          <p className="text-[#9F9F9F] text-sm sm:text-lg">
-            If goods have problems, consectetur <br /> adipiscing elit.
-          </p>
-        </div>
-        <div>
-          <h3 className="text-2xl sm:text-4xl text-black mb-2 md:mt-12">Secure Payment</h3>
-          <p className="text-[#9F9F9F] text-sm sm:text-lg">
-            100% secure payment, consectetur <br /> adipiscing elit.
-          </p>
-        </div>
-      </section> */}
+    
+     
     </div>
   );
 }

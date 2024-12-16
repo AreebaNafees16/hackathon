@@ -1,11 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { AiOutlineHeart, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { BsCart3, BsPerson } from "react-icons/bs";
-import { IoSearchOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { PiAppStoreLogo } from "react-icons/pi";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,15 +31,9 @@ export default function Navbar() {
         </div>
 
         {/* Logo */}
-        <div className="flex items-center absolute left-12 sm:relative sm:left-0">
-          <Image
-            src="/logo.png" // Replace with your logo path
-            alt="Logo"
-            width={60}
-            height={60}
-            className="cursor-pointer"
-          />
-          <span>FURT</span>
+        <div className="flex items-center absolute left-14 sm:relative sm:left-0 md:ml-10">
+          <PiAppStoreLogo className="text-[#B88E2F] font-bold text-3xl" />
+          <span className="text-2xl font-light">SHLEY</span>
         </div>
 
         {/* Navigation Links for Desktop */}
@@ -93,9 +86,7 @@ export default function Navbar() {
             alt="Profile Icon" 
             className="h-6 w-6 hover:text-blue-500 cursor-pointer"
           />
-          {/* <IoSearchOutline className="hover:text-blue-500 cursor-pointer" />
-          <AiOutlineHeart className="hover:text-blue-500 cursor-pointer" />
-          <BsCart3 className="hover:text-blue-500 cursor-pointer" /> */}
+       
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import { MdAccessTime } from "react-icons/md";
 import { FiCalendar } from "react-icons/fi";
+import Link from "next/link";
 
 export default function Section4() {
   const items = [
@@ -37,7 +38,7 @@ export default function Section4() {
       </p>
 
       {/* Images and Details */}
-      <div className="flex flex-col lg:flex-row justify-between w-full max-w-[1440px] gap-10 lg:gap-5 px-2 lg:px-20">
+      <div className="flex flex-col lg:flex-row justify-between w-full max-w-[1440px] gap-10 lg:gap-4 px-2 lg:px-3">
         {items.map((item) => (
           <div
             key={item.id}
@@ -75,10 +76,12 @@ export default function Section4() {
 
       {/* View More Button */}
       <div className="mt-4 lg:mt-10">
+        <Link href="/blog">
         <button className="text-sm lg:text-lg font-medium mb-12 text-black hover:text-blue-700">
           View All Post
           <span className="block w-full h-[2px] bg-black mt-1"></span>
         </button>
+        </Link>
       </div>
     </section>
   );
