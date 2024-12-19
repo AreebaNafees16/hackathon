@@ -59,13 +59,13 @@ export default function ShopPage() {
   return (
     <div className="w-full">
       {/* Top Section */}
-      <section className="relative w-full h-[300px] sm:h-[416px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
+      <section className="relative w-full h-[200px] sm:h-[316px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ backgroundImage: "url('/bg.jpg')" }}
         ></div>
         <div className="relative z-10">
-          <img src="/logo.png" alt="Logo" className="w-16 sm:w-24 h-16 sm:h-24 -mb-3 mt-10 md:ml-4 ml-2" />
+          <img src="/logo.png" alt="Logo" className="w-16 sm:w-24 h-16 sm:h-24 -mb-3 md:ml-4 ml-2" />
           <h1 className="text-3xl sm:text-5xl font-bold text-black mb-4">Shop</h1>
         </div>
         <div className="relative z-20 text-sm sm:text-md text-black flex items-center space-x-2">
@@ -102,11 +102,11 @@ export default function ShopPage() {
       </section>
 
       {/* Products Grid */}
-      {/* <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6 py-8 sm:py-12 sm:ml-4 ml-16">
+      <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6 py-8 sm:py-12 sm:ml-4 ml-16">
         {products.map((product) => (
-          <div key={product.id} className="lg:text-left rounded-lg p-4">
+          <div key={product.id} className="lg:text-left rounded-lg p-2">
             <Link href={`/shop/${product.id}`} className="block">
-              <div className="w-[300px] h-[180px] sm:h-[200px] mb-4 rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+              <div className="w-[250px] h-[180px] sm:h-[200px] mb-4 rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
                 <img
                   src={product.image}
                   alt="product"
@@ -118,13 +118,15 @@ export default function ShopPage() {
             </Link>
           </div>
         ))}
-      </section> */}
+      </section>
 
-<section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8  sm:pr-14 px-4 sm:px-5 py-8 sm:py-12 sm:ml-0 ml-16">
+{/* <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8  sm:pr-14 px-4 sm:px-5 py-8 sm:py-12 sm:ml-0 ml-16">
   {products.map((product) => (
-    <div key={product.id} className="lg:text-left rounded-lg p-4">
+    <div key={product.id} className="lg:text-left rounded-lg p-4"> */}
+
       {/* Check if the product is Asgaard Sofa and add link only for that product */}
-      {product.name === "Asgaard_sofa" ? (
+
+      {/* {product.name === "Asgaard_sofa" ? (
         <Link href={`/shop/${product.id}`} className="block">
           <div className="w-[300px] h-[180px] sm:h-[200px] mb-4 rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
             <img
@@ -138,9 +140,11 @@ export default function ShopPage() {
           </h2>
           <p className="text-black text-lg sm:text-md ml-14">{product.price}</p>
         </Link>
-      ) : (
-        // If not Asgaard Sofa, just display the product without a link
-        <div>
+      ) : ( */}
+
+         {/* If not Asgaard Sofa, just display the product without a link */}
+
+        {/* <div>
           <div className="w-[300px] h-[180px] sm:h-[200px] mb-4 rounded-lg overflow-hidden">
             <img
               src={product.image}
@@ -156,7 +160,7 @@ export default function ShopPage() {
       )}
     </div>
   ))}
-</section>
+</section> */}
 
       {/* Pagination */}
       <div className="w-full max-w-[1440px] mx-auto flex justify-center gap-4 py-6 sm:py-8">

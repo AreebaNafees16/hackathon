@@ -86,15 +86,15 @@ export default function AsgaardSofa() {
   return (
 
     <div className="w-full md:ml-7">
-      <Navbar />
+      
       {/* Header Section */}
 
-      <div className="relative z-10 w-[1440px]  sm:h-[170px] h-[200px] mx-auto flex items-center justify-start bg-white px-6 lg:px-20">
+      <div className="relative z-10 w-[1440px] sm:h-[100px] h-[100px] mx-auto flex items-center justify-start bg-white px-6 lg:px-20">
 
         {/* Breadcrumb Navigation */}
-        <div className="relative z-10 flex items-center space-x-2 text-black text-sm mt-48 mb-28">
+        <div className="relative z-10 flex items-center space-x-2 text-black text-sm">
 
-          <Link href="/" className="hover:text-blue-500 ml-4">
+          <Link href="/" className="hover:text-blue-500 md:-ml-12">
             Home
           </Link>
           <AiOutlineRight />
@@ -427,3 +427,6 @@ export default function AsgaardSofa() {
 
   );
 }
+
+
+

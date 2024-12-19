@@ -19,7 +19,7 @@ export default function Section5() {
 
         {/* Follow Us Button */}
         <button
-          className="bg-[#FAF4F4] text-[#000000] py-3 px-11 rounded-full shadow-md hover:shadow-lg hover:bg-gray-200 transition-all duration-300"
+          className="bg-[#FAF4F4] text-[#000000] py-3 px-11 rounded-full shadow-lg shadow-gray-300 hover:shadow-lg hover:bg-gray-700 hover:text-white transition-all duration-300"
         >
           Follow Us
         </button>

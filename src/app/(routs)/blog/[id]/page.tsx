@@ -18,7 +18,7 @@ export default function Blogpost() {
     return (
         <div className="w-full">
             {/* Top Section */}
-            <section className="relative w-full h-[300px] sm:h-[416px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
+            <section className="relative w-full h-[200px] sm:h-[316px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-40"
                     style={{ backgroundImage: "url('/bg.jpg')" }}

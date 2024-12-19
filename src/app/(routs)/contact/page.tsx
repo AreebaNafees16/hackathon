@@ -9,7 +9,7 @@ export default function ContactPage() {
     return (
         <div className="w-full">
             {/* Top Section */}
-            <section className="h-[300px] sm:h-[350px] md:h-[416px] bg-cover bg-center relative flex flex-col justify-center items-center text-center mb-12">
+            <section className="h-[200px] md:h-[316px] bg-cover bg-center relative flex flex-col justify-center items-center text-center mb-10">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-40"
                     style={{ backgroundImage: "url('/bg.jpg')" }}

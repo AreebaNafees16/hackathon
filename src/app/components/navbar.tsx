@@ -1,10 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { AiOutlineHeart, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
 import { PiAppStoreLogo } from "react-icons/pi";
+import { BsPerson } from "react-icons/bs";
+import { IoCartOutline, IoHeartOutline, IoSearchOutline } from "react-icons/io5";
+
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,10 +21,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50`}
+      className={`w-full z-50`}
       style={{ backgroundColor: navbarBgColor }}
     >
-      <div className="container mx-auto max-w-[1440px] h-[100px] flex items-center justify-between px-4">
+      <div className="container mx-auto max-w-[1440px] h-[80px] flex items-center justify-between px-4">
         {/* Hamburger Icon (Mobile Only) */}
         <div className="flex items-center sm:hidden">
           <button onClick={toggleMenu} className="text-3xl text-black">
@@ -61,31 +63,13 @@ export default function Navbar() {
         </ul>
 
         {/* Icons */}
-        <div className="flex 1 lg:gap-4 space-x-7 text-2xl text-black lg:mr-10">
-          {/* <BsPerson className="hover:text-blue-500 cursor-pointer" /> */}
-               {/* Replace User Icon with Image */}
-               <Link href='/myaccount'>
-               <img 
-            src="/person2.png" 
-            alt="Profile Icon" 
-            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
-          />
+        <div className="flex 1 lg:gap-4 space-x-5 text-2xl text-black lg:mr-10">
+        <Link href='/myaccount'>
+          <BsPerson stroke="thick" className="hover:text-blue-500 cursor-pointer font-bold" />
           </Link>
-                <img 
-            src="/search.png" 
-            alt="Profile Icon" 
-            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
-          />
-                <img 
-            src="/heart.png" 
-            alt="Profile Icon" 
-            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
-          />
-                <img 
-            src="/cart.png" 
-            alt="Profile Icon" 
-            className="h-6 w-6 hover:text-blue-500 cursor-pointer"
-          />
+          <IoSearchOutline className="hover:text-blue-500 cursor-pointer" />
+          <IoHeartOutline className="hover:text-blue-500 cursor-pointer" />
+          <IoCartOutline className="hover:text-blue-500 cursor-pointer" />
        
         </div>
       </div>

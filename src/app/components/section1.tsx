@@ -7,9 +7,9 @@ export default function Section1() {
             <img
               src="/sidetable1.png"
               alt="Image 1"
-              className="w-[90%] sm:w-[600px] h-auto sm:h-[500px] rounded-lg mx-auto lg:pl-28 mt-3 -ml-8 transition-transform duration-300 hover:scale-105"
+              className="w-[90%] sm:w-[600px] h-auto sm:h-[500px] rounded-lg mx-auto lg:pl- mt-3 -ml-8 transition-transform duration-300 hover:scale-105"
             />
-            <h3 className="text-2xl sm:text-2xl lg:text-3xl font-semibold text-black lg:pl-[150px] text-center lg:text-justify  mb-7 lg:-mt-28">
+            <h3 className="text-2xl sm:text-2xl lg:text-3xl font-semibold text-black lg:pl-[135px] text-center lg:text-justify  mb-7 lg:-mt-28">
               Side table
             </h3>
             <button className="relative text-lg font-medium text-black hover:text-blue-700 mr-3 lg:mr-80">
@@ -23,9 +23,9 @@ export default function Section1() {
             <img
               src="/sidetable2.png"
               alt="Image 2"
-              className="w-[100%] sm:w-[600px] h-auto sm:h-[500px] rounded-lg mx-auto lg:ml-7 mt-3 -ml-20 transition-transform duration-300 hover:scale-105"
+              className="w-[100%] sm:w-[600px] h-auto sm:h-[500px] rounded-lg mx-auto mt-3 -ml-20 transition-transform duration-300 hover:scale-105"
             />
-            <h3 className="text-2xl sm:text-2xl lg:text-3xl font-semibold text-black lg:pl-[170px] text-center lg:text-justify mb-5 lg:-mt-28">
+            <h3 className="text-2xl sm:text-2xl lg:text-3xl font-semibold text-black lg:pl-[150px] text-center lg:text-justify mb-5 lg:-mt-28">
               Side table
             </h3>
             <button className="relative text-lg font-medium text-black hover:text-blue-700 mt-2 mr-3 lg:mr-72">
