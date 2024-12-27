@@ -34,8 +34,9 @@ export default function About() {
                 </div>
             </section>
        
-
-    <div className="md:w-[1340px] py-10 px-4 md:px-8">
+{/* 
+    <div className="md:w-[1340px] py-10 px-4 md:px-8"> */}
+    <div className="w-full max-w-[1440px] mx-auto bg-[#FFFFFF] px-4 sm:px-8 md:px-12 py-6">
       <section className="text-center">
         <h1 className="text-4xl font-bold text-black mb-6"> Crafting Timeless Comfort</h1>
         

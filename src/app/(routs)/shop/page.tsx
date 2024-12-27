@@ -4,6 +4,7 @@ import Feature from "@/app/components/feature";
 import { AiOutlineRight, AiOutlinePicCenter } from "react-icons/ai";
 import { RiApps2Fill } from "react-icons/ri";
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
+import Filter from "@/app/components/filter";
 
 export default function ShopPage() {
   const products = [
@@ -78,31 +79,30 @@ export default function ShopPage() {
       </section>
 
       {/* Filter Section */}
-      <section className="w-full h-auto sm:h-[100px] flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 md:px-12 bg-[#FAF4F4] gap-4">
-        <div className="flex items-center gap-2 sm:gap-4 mt-4">
-          <HiOutlineAdjustmentsHorizontal className="text-lg sm:text-2xl" />
-          <span className="text-black text-sm sm:text-md">Filter</span>
-          <RiApps2Fill className="text-lg sm:text-2xl" />
-          <AiOutlinePicCenter className="text-lg sm:text-2xl" />
-          <span className="text-black text-sm sm:text-md ml-2 sm:ml-6">
-            <span className="hidden sm:inline-block text-2xl text-[#9F9F9F] mr-4">|</span>
-            Showing 1–16 of 32 results
-          </span>
-        </div>
-        <div className="flex items-center gap-4 mb-5">
-          <div className="flex items-center gap-2">
-            <span className="text-black text-sm sm:text-md">Show</span>
-            <button className="bg-white px-2 sm:px-4 py-1 text-sm sm:text-md">16</button>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-black text-sm sm:text-md">Sort by</span>
-            <button className="bg-white px-2 sm:px-4 py-1 text-sm sm:text-md">Default</button>
-          </div>
-        </div>
-      </section>
-
+      <Filter />
+      
       {/* Products Grid */}
-      <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6 py-8 sm:py-12 sm:ml-4 ml-16">
+      <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-4 py-8 sm:py-12">
+  {products.map((product) => (
+    <div key={product.id} className="flex flex-col items-center sm:items-start text-left rounded-lg md:pl-10">
+      <Link href={`/shop/${product.id}`} className="">
+        {/* Image Container */}
+        <div className="w-[250px] h-[180px] sm:h-[200px] mb-4 rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+          <img
+            src={product.image}
+            alt="product"
+            className="w-full h-full"
+          />
+        </div>
+        {/* Product Details */}
+        <h2 className="text-lg font-medium text-black hover:text-blue-500 text-left sm:text-left">{product.name}</h2>
+        <p className="text-black text-lg text-left sm:text-left">{product.price}</p>
+      </Link>
+    </div>
+  ))}
+</section>
+
+      {/* <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6 py-8 sm:py-12 sm:ml-4 ml-16">
         {products.map((product) => (
           <div key={product.id} className="lg:text-left rounded-lg p-2">
             <Link href={`/shop/${product.id}`} className="block">
@@ -118,7 +118,33 @@ export default function ShopPage() {
             </Link>
           </div>
         ))}
-      </section>
+      </section> */}
+
+      {/* Pagination */}
+      <div className="w-full max-w-[1440px] mx-auto flex justify-center gap-4 py-6 sm:py-8 mb-6">
+        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
+          1
+        </button>
+        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
+          2
+        </button>
+        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
+          3
+        </button>
+        <button className="w-14 sm:w-16 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
+          Next
+        </button>
+      </div>
+
+      {/* Features Section */}
+      <Feature />
+    
+     
+    </div>
+  );
+}
+
+
 
 {/* <section className="w-full max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8  sm:pr-14 px-4 sm:px-5 py-8 sm:py-12 sm:ml-0 ml-16">
   {products.map((product) => (
@@ -161,27 +187,3 @@ export default function ShopPage() {
     </div>
   ))}
 </section> */}
-
-      {/* Pagination */}
-      <div className="w-full max-w-[1440px] mx-auto flex justify-center gap-4 py-6 sm:py-8">
-        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
-          1
-        </button>
-        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
-          2
-        </button>
-        <button className="w-10 sm:w-12 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
-          3
-        </button>
-        <button className="w-14 sm:w-16 h-10 sm:h-12 flex justify-center items-center rounded-md bg-[#FFF9E5] hover:bg-[#FBEBB5]">
-          Next
-        </button>
-      </div>
-
-      {/* Features Section */}
-      <Feature />
-    
-     
-    </div>
-  );
-}

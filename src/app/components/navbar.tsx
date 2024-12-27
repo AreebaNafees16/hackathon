@@ -27,19 +27,19 @@ export default function Navbar() {
       <div className="container mx-auto max-w-[1440px] h-[80px] flex items-center justify-between px-4">
         {/* Hamburger Icon (Mobile Only) */}
         <div className="flex items-center sm:hidden">
-          <button onClick={toggleMenu} className="text-3xl text-black">
-            <AiOutlineMenu />
+          <button onClick={toggleMenu} className="text-2xl text-black">
+            <AiOutlineMenu size={25}/>
           </button>
         </div>
 
         {/* Logo */}
-        <div className="flex items-center absolute left-14 sm:relative sm:left-0 md:ml-10">
+        <div className="flex items-center absolute left-12 sm:relative sm:left-0 md:ml-10">
           <PiAppStoreLogo className="text-[#B88E2F] font-bold text-3xl" />
-          <span className="text-2xl font-light">SHLEY</span>
+          <span className="text-2xl  font-light">SHLEY</span>
         </div>
 
         {/* Navigation Links for Desktop */}
-        <ul className="hidden sm:flex space-x-10 text-lg font-medium">
+        <ul className="hidden sm:flex space-x-10 text-xl font-medium">
           <li>
             <Link href="/" className="hover:text-blue-500 cursor-pointer">
               Home
@@ -63,13 +63,15 @@ export default function Navbar() {
         </ul>
 
         {/* Icons */}
-        <div className="flex 1 lg:gap-4 space-x-5 text-2xl text-black lg:mr-10">
+        <div className="flex 1 lg:gap-4 md:space-x-5 space-x-1 text-2xl text-black lg:mr-10">
         <Link href='/myaccount'>
-          <BsPerson stroke="thick" className="hover:text-blue-500 cursor-pointer font-bold" />
+          <BsPerson size={30} className="hover:text-blue-500 cursor-pointer font-bold" />
           </Link>
-          <IoSearchOutline className="hover:text-blue-500 cursor-pointer" />
-          <IoHeartOutline className="hover:text-blue-500 cursor-pointer" />
-          <IoCartOutline className="hover:text-blue-500 cursor-pointer" />
+          <IoSearchOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          <IoHeartOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          <Link href='/cart'>
+          <IoCartOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          </Link>
        
         </div>
       </div>

@@ -1,7 +1,7 @@
 export default function Section1() {
     return (
       <section className="bg-[#FAF4F4] w-full h-auto lg:h-[622px] flex items-center justify-center py-8 lg:py-0">
-        <div className="container mx-auto max-w-[1440px] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-1 items-center">
+        <div className="container mx-auto max-w-[1440px] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-6 items-center">
           {/* Image 1 */}
           <div className="text-center px-4 sm:px-8 lg:px-0">
             <img

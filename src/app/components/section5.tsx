@@ -10,10 +10,10 @@ export default function Section5() {
       {/* Content */}
       <div className="relative text-center">
         {/* Main Heading */}
-        <h1 className="text-5xl font-bold text-[#000000] mb-4">Our Instagram</h1>
+        <h1 className="md:text-5xl text-4xl font-extrabold text-[#000000] mb-4">Our Instagram</h1>
 
         {/* Small Heading */}
-        <p className="text-md text-[#000000] mb-6">
+        <p className="md:text-base text-sm text-[#000000] mb-6">
           Follow our store on Instagram
         </p>
 

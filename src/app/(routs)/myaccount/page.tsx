@@ -5,13 +5,13 @@ import { AiOutlineRight } from "react-icons/ai";
 export default function myAccount() {
     return (
         <div className="w-full">
-            <section className="relative w-full h-[300px] sm:h-[416px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
+            <section className="relative w-full h-[200px] sm:h-[316px] bg-cover bg-center flex flex-col justify-center items-center text-center">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-40"
                     style={{ backgroundImage: "url('/bg.jpg')" }}
                 ></div>
                 <div className="relative z-10">
-                    <img src="/logo.png" alt="Logo" className="w-16 sm:w-24 h-16 sm:h-24 -mb-3 mt-10 md:ml-28 ml-2" />
+                    <img src="/logo.png" alt="Logo" className="w-16 sm:w-24 h-16 sm:h-24 -mb-3 mt-10 md:ml-28 ml-16" />
                     <h1 className="text-3xl sm:text-5xl font-bold text-black mb-4">My Account</h1>
                 </div>
                 <div className="relative z-20 text-sm sm:text-md text-black flex items-center space-x-2">
@@ -23,7 +23,7 @@ export default function myAccount() {
                 </div>
             </section>
 
-            <div className="mt-8 grid gap-8 mx-4 lg:mx-32 lg:grid-cols-2">
+            <div className="max-w-[1440px] mx-auto mt-8 grid gap-8 px-4 lg:px-32 lg:grid-cols-2">
                 {/* Login Section */}
                 <div className="p-4 rounded">
                     <h2 className="text-3xl font-bold my-8">Log In</h2>
@@ -53,11 +53,11 @@ export default function myAccount() {
                             Remember me
                         </label>
                     </div>
-                    <div className="flex items-center">
-                        <button className="border border-black font-medium text-black px-12 py-3 rounded-xl hover:text-white hover:bg-gray-700">
+                    <div className="md:flex items-center">
+                        <button className="border border-black font-medium text-black md:px-12 md:py-3 px-12 py-3 rounded-xl hover:text-white text-md hover:bg-gray-700">
                             Log In
                         </button>
-                        <p className="ml-6 text-black text-sm hover:underline cursor-pointer">
+                        <p className="md:ml-6 text-black text-md md:mt-0 mt-7 hover:underline cursor-pointer">
                             Lost Your Password?
                         </p>
                     </div>
