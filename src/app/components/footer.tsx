@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export default function Footer() {
     return (
-      <footer className="w-full h-auto bg-[#FFFFFF] mt-20">
+      <footer className="w-full h-auto bg-[#FFFFFF]">
         <div className="container mx-auto max-w-[1440px] h-full py-8 px-6 sm:px-8 md:px-12">
           {/* Footer Content Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -45,6 +47,11 @@ export default function Footer() {
                 <li className="mb-4">
                   <a href="#" className="hover:text-blue-400">Privacy Policies</a>
                 </li>
+              
+                <li className="mb-4">
+                  <Link href="/faqs" className="hover:text-blue-400">FAQs</Link>
+                </li>
+              
               </ul>
             </div>
   

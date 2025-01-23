@@ -2,13 +2,14 @@
 import { usePathname } from "next/navigation";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiAppStoreLogo } from "react-icons/pi";
 import { BsPerson } from "react-icons/bs";
 import { IoCartOutline, IoHeartOutline, IoSearchOutline } from "react-icons/io5";
 
 
 export default function Navbar() {
+  const [cartCount, setCartCount] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname(); // Get the current pathname
 
@@ -18,6 +19,48 @@ export default function Navbar() {
 
   // Set the background color based on the pathname
   const navbarBgColor = pathname === "/" ? "#FBEBB5" : "#FFFFFF";
+
+  // Function to fetch and update cart count
+  const fetchCartCount = () => {
+    const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCartCount(savedCart.length);
+  };
+
+// Update cart count on mount
+useEffect(() => {
+  fetchCartCount();
+}, []);
+
+// // Add item to cart and update state and localStorage
+// const addItemToCart = (item) => {
+//   const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+//   const updatedCart = [...currentCart, item];
+//   localStorage.setItem('cart', JSON.stringify(updatedCart));
+//   setCartCount(updatedCart.length); // Update state immediately
+// };
+
+
+
+
+  // // Initialize cart count on component mount
+  // useEffect(() => {
+  //   updateCartCount();
+    
+  //   // Listen for changes in localStorage
+  //   const handleStorageChange = (event:any) => {
+  //     if (event.key === 'cart') {
+  //       updateCartCount();
+  //     }
+  //   };
+
+  //   window.addEventListener('storage', handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener('storage', handleStorageChange);
+  //   };
+  // }, []);
+
+  
 
   return (
     <nav
@@ -67,12 +110,26 @@ export default function Navbar() {
         <Link href='/myaccount'>
           <BsPerson size={30} className="hover:text-blue-500 cursor-pointer font-bold" />
           </Link>
+          <Link href='/searchbar'>
           <IoSearchOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          </Link>
+          <Link href='/wishlist'>
           <IoHeartOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          </Link>
+          
           <Link href='/cart'>
           <IoCartOutline size={30} className="hover:text-blue-500 cursor-pointer" />
+          
+          <span
+          className={`absolute top-9 right- inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-amber-400 rounded-full ${
+            cartCount === 0 ? '0' : ''
+          }`}
+        >
+          {cartCount}
+         
+          </span>
           </Link>
-       
+          
         </div>
       </div>
 

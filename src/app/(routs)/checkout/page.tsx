@@ -1,9 +1,97 @@
+"use client"
 import Feature from "@/app/components/feature";
 import Link from "next/link";
 import { AiOutlineRight } from "react-icons/ai";
+ import { client } from '@/sanity/lib/client';
+ import React, { useState, useEffect } from "react";
+ import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
+interface Product {
+    title: string;
+    _id: string; // Adjust the type as per your database
+    name: string;
+    description: string;
+    price: number;
+    
+    images: string;
+    alt: string;
+    slug: string;
+    quantity: number;
+}
 
 export default function CheackOut() {
+
+
+    const [sanityData, setSanityData] = useState<Product[]>([]);
+    const [cart, setCart] = useState<string[]>([]);
+    const [cartItems, setCartItems] = useState<Product[]>([]);
+   
+
+    // Fetch data from Sanity
+    useEffect(() => {
+        const fetchData = async () => {
+            const query = `*[_type == "product"]{
+                _id,
+                name,
+                description,
+                price,
+              
+                "images": images.asset->url,
+            
+                slug
+            }`;
+
+            const data: Product[] = await client.fetch(query);
+            setSanityData(data);
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        setCart(savedCart);
+
+        const items = savedCart
+        .map((id: string) => sanityData.find((p) => p._id === id))
+        .filter((item: any): item is Product => Boolean(item));
+      setCartItems(items);
+    }, [sanityData]);
+  
+    const removeFromCart = (id: string) => {
+        const updatedCart = cart.filter((productId) => productId !== id);
+        setCart(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        
+        
+  
+        const updatedItems = updatedCart
+          .map((id) => sanityData.find((p) => p._id === id))
+          .filter((item): item is Product => Boolean(item));
+        setCartItems(updatedItems);
+      };
+
+
+
+    // Load cart items from localStorage
+    // useEffect(() => {
+    //     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]") as string[]; // Assuming _id is string
+    //     const items = savedCart.map((id) => sanityData.find((p) => p._id === id)).filter(Boolean) as Product[];
+    //     setCartItems(items);
+    // }, [sanityData]);
+
+
+
+    const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+    const clearCart = () => {
+        setCartItems([]);
+        localStorage.removeItem("cart");
+        alert("Your order has been placed!");
+    };
+
+
   return (
     <div className="w-full">
       <section className="relative w-full h-[200px] sm:h-[316px] bg-cover bg-center flex flex-col justify-center items-center text-center mb-12">
@@ -138,6 +226,8 @@ export default function CheackOut() {
           </div>
         </div>
 
+
+
         {/* Order Summary */}
         <div className="w-full lg:w-1/2 md:mx-20 mt-4 lg:mt-12">
           <div className="mt-4">
@@ -147,32 +237,46 @@ export default function CheackOut() {
               <span className="text-xl font-bold">Subtotal</span>
             </div>
 
+
+            </div>
+                    {cartItems.length > 0 ? (
+                        cartItems.map(item => (
+                            <div key={item._id}>
+
+                                <div className="w-full lg:w-[533px] flex justify-between items-center">
+                                    <div className="flex justify-center items-center gap-2">
+                                        <div className="flex justify-center items-center bg-[#F9F1E7] size-[80px] rounded-[10px] mb-4">
+                                            {item.images && (
+                                                    <Image
+                                                      src={urlFor(item.images).url()}
+                                                      alt={item.title}
+                                                      width={300}
+                                                      height={300}
+                                                      className="rounded-lg object-scale-down w-full h-full"
+                                                    />
+                                                  )}
+                                 </div>
+                                        <h1 className="font-[400] text-[16px] leading-[24px] text-[#9F9F9F]">{item.name}</h1>
+
+                                    </div>
+                                    <h1 className="font-[400] text-[16px] leading-[24px] text-black">Rs. {item.price}</h1>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-center">Your cart is empty</p>
+                    )}
+
+                    <div className="w-full lg:w-[533px] flex justify-between items-center">
+                        <h1 className="font-[400] text-[16px] leading-[24px] text-[black]">Total</h1>
+                        <h1 className="font-[700] text-[24px] leading-[38px] text-[#B88E2F]">Rs. {totalPrice}</h1>
+                    </div>
+
+
             {/* Product Rows */}
-            <div className="flex justify-between py">
-              <div className="space-x-3">
-                <span className="text-[#9F9F9F]">Asgaard Sofa</span>
-                <span>x</span>
-                <span>1</span>
-              </div>
-              <div className="flex gap-4">
-                {/* <span>X</span>
-        <span>1</span> */}
-                <span className="text-right font-light">Rs: 250,000.00</span>
-              </div>
-            </div>
+            
 
-            {/* Subtotal Row */}
-            <div className="flex justify-between py-2 font-semibold">
-              <span>Subtotal</span>
-              <span className="text-right font-light">Rs: 250,000.00</span>
-            </div>
 
-            {/* Total Row */}
-            <div className="flex justify-between py-2 border-b font-semibold">
-              <span>Total</span>
-              <span className="text-[#B88E2F] text-right text-xl">Rs: 250,000.00</span>
-            </div>
-          </div>
           {/* Payment Method */}
           <div className="flex items-center mt-5">
             <input
@@ -214,3 +318,250 @@ export default function CheackOut() {
 
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// "use client"
+// import Image from 'next/image'
+// import { SlArrowRight } from "react-icons/sl";
+// import { GoDotFill } from "react-icons/go";
+// import { FaRegCircle } from "react-icons/fa";
+// import Link from 'next/link';
+// import { client } from '@/sanity/lib/client';
+// import React, { useState, useEffect } from "react";
+
+// interface Product {
+//     _id: string; // Adjust the type as per your database
+//     name: string;
+//     description: string;
+//     price: number;
+    
+//     images: string;
+//     alt: string;
+//     slug: string;
+//     quantity: number;
+// }
+
+// const Page = () => {
+//     const [sanityData, setSanityData] = useState<Product[]>([]);
+//     const [cartItems, setCartItems] = useState<Product[]>([]);
+
+//     // Fetch data from Sanity
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             const query = `*[_type == "product"]{
+//                 _id,
+//                 name,
+//                 description,
+//                 price,
+//                 originalPrice,
+//                 discount,
+//                 "images": images.asset->url,
+//                 alt,
+//                 slug
+//             }`;
+
+//             const data: Product[] = await client.fetch(query);
+//             setSanityData(data);
+//         };
+
+//         fetchData();
+//     }, []);
+
+//     // Load cart items from localStorage
+
+//     useEffect(() => {
+//         const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+//         const items = savedCart
+//             .map((id) => sanityData.find((p) => p._id === id))
+//             .filter((item): item is Product => Boolean(item));
+//             // .filter((p): p is Product => !!p); 
+//         setCartItems(items);
+//     }, [sanityData]);
+    
+
+//     useEffect(() => {
+//         console.log("Sanity Data:", sanityData);
+//         console.log("Cart Items:", cartItems);
+//     }, [sanityData, cartItems]);
+    
+//     // useEffect(() => {
+//     //     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]") as string[]; // Assuming _id is string
+//     //     const items = savedCart.map((id) => sanityData.find((p) => p._id === id)).filter(Boolean) as Product[];
+//     //     setCartItems(items);
+//     // }, [sanityData]);
+
+//     const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+//     const clearCart = () => {
+//         setCartItems([]);
+//         localStorage.removeItem("cart");
+//         alert("Your order has been placed!");
+//     };
+//     return (
+//         <div className='max-w-[1440px] mx-auto overflow-hidden'>
+
+//             <div className="flex flex-col justify-center items-center bg-[url('/image5.png')] w-full custom:w-[1440px] h-[316px] mb-[56.6px]">
+//                 <Image src="/logo.png" alt="logo" width={77} height={77} />
+//                 <h1 className="font-[500] text-[48px] leading-[72px] text-black text-center">Checkout</h1>
+//                 <div className="flex justify-center items-center gap-1 text-center">
+//                     <Link href="/" className='font-[500] text-[16px] leading-6 text-black hover:underline underline-offset-4'>Home</Link>
+//                     <h1 className="flex justify-center items-center">
+//                         <SlArrowRight className="scale-90" />
+//                     </h1>
+//                     <h1 className="font-[300] text-[16px] leading-6 text-black">Checkout</h1>
+//                 </div>
+//             </div>
+
+//             <div className="flex flex-col xl:flex-row justify-between items-start mx-[20px] md:mx-[100px]">
+
+
+//                 <div className="flex flex-col justify-start items-center md:items-start gap-[20px] w-full lg:w-auto mb-[100px]">
+//                     <h1 className="font-[600] text-[36px] leading-[54px] text-black">Billing details</h1>
+
+//                     <div className="flex justify-center items-center gap-[24px]">
+//                         <div className="flex flex-col justify-center items-start gap-[10px]">
+//                             <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] capitalize">First name</h1>
+//                             <input type="text" placeholder="" className="w-full lg:w-[211px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                         </div>
+//                         <div className="flex flex-col justify-center items-start gap-[10px]">
+//                             <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] capitalize">last name</h1>
+//                             <input type="text" placeholder="" className="w-full lg:w-[211px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                         </div>
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Company Name / Optional</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Country / Region</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Street address</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Town / City</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Province</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">ZIP code</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Phone</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <h1 className="font-[500] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px]">Email address</h1>
+//                         <input type="text" placeholder="" className="w-full md:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+//                     <div className="flex flex-col justify-center items-start gap-[10px]">
+//                         <input type="text" placeholder="Additional information" className="w-full lg:w-[453px] h-[75px] rounded-[10px] border border-[#9F9F9F] font-[400] text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] px-[20px]" />
+//                     </div>
+
+
+//                 </div>
+
+//                 <div className="w-full xl:w-[533px] h-full lg:h-[616px] flex flex-col justify-start items-start gap-6 lg:mt-[60px] mt-0">
+//                     <div className="w-full lg:w-[533px] flex justify-between items-center">
+//                         <h1 className="font-[500] text-[24px] leading-[36px] text-black">Product</h1>
+//                         <h1 className="font-[500] text-[24px] leading-[36px] text-black">Subtotal</h1>
+
+//                     </div>
+//                     {cartItems.length > 0 ? (
+//                         cartItems.map(item => (
+//                             <div key={item._id}>
+
+//                                 <div className="w-full lg:w-[533px] flex justify-between items-center">
+//                                     <div className="flex justify-center items-center gap-2">
+//                                         <div className="flex justify-center items-center bg-[#F9F1E7] size-[80px] rounded-[10px]">
+//                                         {item.images ? (
+//     <Image
+//         src={item.images}
+//         alt={item.name || "Product images"}
+//         width={90}
+//         height={50}
+//         className="rounded-lg object-scale-down w-full h-full"
+//     />
+// ) : (
+//     <div className="w-[90px] h-[50px] bg-gray-200 rounded-lg flex items-center justify-center">
+//         <span className="text-sm text-gray-500">No Image</span>
+//     </div>
+// )}
+
+//                                             {/* <Image src={item.images} alt={item.name} width={90} height={50} className='rounded-lg object-scale-down w-full h-full' /> */}
+//                                         </div>
+//                                         <h1 className="font-[400] text-[16px] leading-[24px] text-[#9F9F9F]">{item.name}</h1>
+
+//                                     </div>
+//                                     <h1 className="font-[400] text-[16px] leading-[24px] text-black">Rs. {item.price}</h1>
+//                                 </div>
+//                             </div>
+//                         ))
+//                     ) : (
+//                         <p className="text-center">Your cart is empty</p>
+//                     )}
+
+//                     <div className="w-full lg:w-[533px] flex justify-between items-center">
+//                         <h1 className="font-[400] text-[16px] leading-[24px] text-[black]">Total</h1>
+//                         <h1 className="font-[700] text-[24px] leading-[38px] text-[#B88E2F]">Rs. {totalPrice}</h1>
+//                     </div>
+
+//                     <hr className='w-full lg:w-[533px]' />
+
+//                     <div className="flex flex-col justify-start items-start gap-[20px]">
+//                         <h1 className="font-[400] text-[16px] leading-6 text-black flex justify-center items-center gap-4"><span><GoDotFill className='scale-[2]' /></span>Direct Bank Transfer</h1>
+
+//                         <h1 className="font-[300] text-[16px] leading-6 text-[#9F9F9F] text-justify">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</h1>
+
+//                         <div className="flex flex-col justify-start items-start gap-[10px]">
+//                             <h1 className="font-[400] text-[16px] leading-6 text-[#9F9F9F] flex justify-center items-center gap-4"><span><FaRegCircle className='scale-[1]' /></span>Direct Bank Transfer</h1>
+
+//                             <h1 className="font-[400] text-[16px] leading-6 text-[#9F9F9F] flex justify-center items-center gap-4"><span><FaRegCircle className='scale-[1]' /></span>Cash On Delivery</h1>
+//                         </div>
+
+//                         <h1 className="font-[300] text-[16px] leading-6 text-[#000000] text-justify">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <span className="font-bold">privacy policy.</span></h1>
+
+//                         <div className="flex justify-center items-center w-full lg:w-[533px] mb-5 lg:mb-0 mt-[19px]">
+//                             <button onClick={clearCart} className="w-full lg:w-[318px] h-[64px] rounded-[15px] border-[1px] border-black font-[400] text-[20px] leading-[30px] hover:text-white hover:bg-black duration-300 ease-in-out">Place order</button>
+//                         </div>
+//                     </div>
+
+
+
+//                 </div>
+
+//             </div>
+
+
+
+//         </div>
+//     )
+// }
+
+// export default Page

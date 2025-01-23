@@ -1,38 +1,39 @@
+export const products = [
+  { id: 1, name: "Trenton modular sofa_3", price: "25,000.00", image: "/item1.png" },
+  {
+    id: 2,
+    name: (
+      <>
+        Granite dining table with <br /> dining chair
+      </>
+    ),
+    price: "25,000.00",
+    image: "/item2.png",
+  },
+  {
+    id: 3,
+    name: (
+      <>
+        Outdoor bar table and <br /> stool
+      </>
+    ),
+    price: "25,000.00",
+    image: "/item3.png",
+  },
+  {
+    id: 4,
+    name: (
+      <>
+        Plain console with teak <br /> mirror <br />
+      </>
+    ),
+    price: "25,000.00",
+    image: "/item4.png",
+  },
+];
 export default function Related() {
-    const products = [
-      { id: 1, name: "Trenton modular sofa_3", price: "25,000.00", image: "/item1.png" },
-      {
-        id: 2,
-        name: (
-          <>
-            Granite dining table with <br /> dining chair
-          </>
-        ),
-        price: "25,000.00",
-        image: "/item2.png",
-      },
-      {
-        id: 3,
-        name: (
-          <>
-            Outdoor bar table and <br /> stool
-          </>
-        ),
-        price: "25,000.00",
-        image: "/item3.png",
-      },
-      {
-        id: 4,
-        name: (
-          <>
-            Plain console with teak <br /> mirror <br />
-          </>
-        ),
-        price: "25,000.00",
-        image: "/item4.png",
-      },
-    ];
-  
+    
+          
     return (
       <section className="bg-[#FFFFFF] w-full lg:h-[777px] flex flex-col items-center justify-center py-8 lg:py-0">
         {/* Title and Paragraph */}

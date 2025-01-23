@@ -57,7 +57,7 @@ export default function About() {
       <section className="mt-12">
         <div className="p-6 text-center">
           {/* <h2 className="text-3xl font-semibold text-gray-800 mb-4">Our Furniture Categories</h2> */}
-          <div className="mt-6 flex justify-center md:gap-48 gap-11">
+          <div className="mt-6 flex justify-center md:gap-48 gap-5">
             <div className="flex flex-col items-center">
               <TbArmchair2 className="w-12 h-12 text-[#B88E2F]" />
               <span className="md:text-4xl text-xl font-bold mt-3">860+</span>
@@ -84,50 +84,50 @@ export default function About() {
       </section>
 
       
-
- <div className="md:w-[900px] md:h-[1000px] h-[900px] mx-auto p-6 flex flex-col gap-10 mt-8">
-      {/* Design 1 */}
-      <div className="flex items-center gap-6">
-        {/* Image on Left */}
-        <div className="md:w-[400px] md:h-[500px] w-[400px] h-[300px] bg-gray-200 rounded-lg overflow-hidden">
-          <Image
-            src="/modrenfurniture.webp"
-            alt="Design 1 Image"
-            width={700}
-            height={700}
-            className="w-full h-full"
-          />
-        </div>
-        {/* Text on Right */}
-        <div className="md:w-[400px] md:h-[400px] w-[400px] h-[400px] bg-[#F6F4F2] rounded-lg p-4 flex flex-col justify-center mb-24">
-          <h1 className="md:text-2xl text-xs font-bold mb-6 uppercase">Modern Furniture Collection</h1>
-          <p className="md:text-base text-xs text-gray-700">
-          Elevate your living spaces with our sleek and contemporary modern furniture. Designed for both style and comfort this collection features clean lines premium materials and versatile designs to complement any home decor. Whether your furnishing a cozy apartment or a spacious home our modern furniture combines elegance with functionality perfect for the modern lifestyle.
-          </p>
-        </div>
-      </div>
-
-      {/* Design 2 */}
-      <div className="flex items-center gap-6">
-        {/* Text on Left */}
-        <div className="md:w-[400px] md:h-[400px] w-[400px] h-[400px] bg-[#F6F4F2] rounded-lg p-4 flex flex-col justify-center md:-mt-6 -mt-28">
-          <h1 className="md:text-2xl text-xs font-bold mb-6 uppercase">Kids/Baby Furniture Collection</h1>
-          <p className="md:text-base text-xs text-gray-700">
-          Create a playful and safe haven for your little ones with our charming kids furniture collection. From colorful and imaginative designs to durable and child-friendly materials, we offer everything you need to set up a delightful and functional space for your kids. Discover beds, storage solutions, and seating tailored to inspire creativity and comfort.
-          </p>
-        </div>
-        {/* Image on Right */}
-        <div className="md:w-[400px] md:h-[500px] w-[400px] h-[300px] bg-gray-200 rounded-lg overflow-hidden md:-mt-32 -mt-52">
-          <Image
-            src="/kidsroom.jpg"
-            alt="Design 2 Image"
-            width={700}
-            height={700}
-            className="w-full h-full"
-          />
-        </div>
-      </div>
+      <div className="max-w-[900px] mx-auto p-6 flex flex-col gap-10 mt-8">
+  {/* Design 1 */}
+  <div className="flex flex-col md:flex-row items-center gap-6">
+    {/* Image on Left */}
+    <div className="w-full md:w-[50%] h-[300px] md:h-[500px] bg-gray-200 rounded-lg overflow-hidden">
+      <Image
+        src="/modrenfurniture.webp"
+        alt="Design 1 Image"
+        width={700}
+        height={700}
+        className="w-full h-full object-cover"
+      />
     </div>
+    {/* Text on Right */}
+    <div className="w-full md:w-[50%] bg-[#F6F4F2] rounded-lg p-4 flex flex-col justify-center">
+      <h1 className="text-lg md:text-2xl font-bold mb-4 uppercase">Modern Furniture Collection</h1>
+      <p className="text-sm md:text-base text-gray-700">
+        Elevate your living spaces with our sleek and contemporary modern furniture. Designed for both style and comfort, this collection features clean lines, premium materials, and versatile designs to complement any home decor. Whether you're furnishing a cozy apartment or a spacious home, our modern furniture combines elegance with functionality perfect for the modern lifestyle.
+      </p>
+    </div>
+  </div>
+
+  {/* Design 2 */}
+  <div className="flex flex-col md:flex-row-reverse items-center gap-6">
+    {/* Image on Right */}
+    <div className="w-full md:w-[50%] h-[300px] md:h-[500px] bg-gray-200 rounded-lg overflow-hidden">
+      <Image
+        src="/kidsroom.jpg"
+        alt="Design 2 Image"
+        width={700}
+        height={700}
+        className="w-full h-full object-cover"
+      />
+    </div>
+    {/* Text on Left */}
+    <div className="w-full md:w-[50%] bg-[#F6F4F2] rounded-lg p-4 flex flex-col justify-center">
+      <h1 className="text-lg md:text-2xl font-bold mb-4 uppercase">Kids/Baby Furniture Collection</h1>
+      <p className="text-sm md:text-base text-gray-700">
+        Create a playful and safe haven for your little ones with our charming kids furniture collection. From colorful and imaginative designs to durable and child-friendly materials, we offer everything you need to set up a delightful and functional space for your kids. Discover beds, storage solutions, and seating tailored to inspire creativity and comfort.
+      </p>
+    </div>
+  </div>
+</div>
+
 
 
 
