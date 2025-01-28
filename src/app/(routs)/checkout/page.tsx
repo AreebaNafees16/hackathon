@@ -14,7 +14,7 @@ interface Product {
     description: string;
     price: number;
     
-    images: string;
+    image: string;
     alt: string;
     slug: string;
     quantity: number;
@@ -37,7 +37,7 @@ export default function CheackOut() {
                 description,
                 price,
               
-                "images": images.asset->url,
+                "image": image.asset->url,
             
                 slug
             }`;
@@ -245,14 +245,14 @@ export default function CheackOut() {
 
                                 <div className="w-full lg:w-[533px] flex justify-between items-center">
                                     <div className="flex justify-center items-center gap-2">
-                                        <div className="flex justify-center items-center bg-[#F9F1E7] size-[80px] rounded-[10px] mb-4">
-                                            {item.images && (
+                                        <div className="flex justify-center items-center size-[80px] rounded-[10px] mb-4">
+                                            {item.image && (
                                                     <Image
-                                                      src={urlFor(item.images).url()}
+                                                      src={urlFor(item.image).url()}
                                                       alt={item.title}
                                                       width={300}
                                                       height={300}
-                                                      className="rounded-lg object-scale-down w-full h-full"
+                                                      className="rounded-lg w-full h-full"
                                                     />
                                                   )}
                                  </div>

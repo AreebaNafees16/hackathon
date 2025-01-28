@@ -1,5 +1,6 @@
 // types/product.ts (optional: create a separate file for types)
 export interface Product {
+  id: any;
   slug: string;
   name: string;
   price: string;
@@ -51,7 +52,7 @@ export const products : Product[] = [
       details: {
         description: "The Trenton Modular Sofa_3 is a versatile and modern seating piece designed for maximum comfort and flexibility. It features a modular design, allowing you to configure it in various arrangements to suit your space and style. The sofa typically includes cushioned seating and backrests, crafted from high-quality materials such as soft fabric or leather upholstery. The sleek lines and contemporary silhouette make it an ideal addition to both minimalist and modern interiors. With its customizable modules, this sofa offers adaptability for living rooms, lounges, and open spaces, ensuring both functionality and aesthetic appeal.",
         additionalInfo: "The Trenton Modular Sofa_3 is a versatile and flexible seating option, offering a customizable layout that can be rearranged to suit different room sizes and preferences. It features cushioned seating and backrests made with high-density foam or plush padding for optimal comfort and support. Upholstered in high-quality materials like premium fabric, leather, or microfiber, the sofa is durable and easy to maintain. The sturdy frame, typically crafted from hardwood or metal, ensures long-term stability. Adjustable or removable armrests are available in some models, allowing for a personalized seating experience.",
-        additionalInfo1:"The modular design may also include ottomans, chaise lounges, or corner pieces, enabling you to expand the seating area or create a more relaxed, lounging space. With clean lines and a minimalist silhouette, it complements contemporary interiors with its neutral tones. The sofa is easy to assemble, with sections designed for simple setup and reconfiguration. Additionally, some versions are made with eco-friendly materials, catering to those seeking sustainable options. The Trenton Modular Sofa_3 is a perfect blend of comfort, style, and functionality, making it a great addition to any modern living space."
+        additionalInfo1: "The modular design may also include ottomans, chaise lounges, or corner pieces, enabling you to expand the seating area or create a more relaxed, lounging space. With clean lines and a minimalist silhouette, it complements contemporary interiors with its neutral tones. The sofa is easy to assemble, with sections designed for simple setup and reconfiguration. Additionally, some versions are made with eco-friendly materials, catering to those seeking sustainable options. The Trenton Modular Sofa_3 is a perfect blend of comfort, style, and functionality, making it a great addition to any modern living space."
       },
       reviews: [
         { rating: 5, text: "Comfortable and stylish!" },
@@ -63,7 +64,8 @@ export const products : Product[] = [
         { id: "3", image: "/item3.png" },
         { id: "4", image: "/item4.png" },
         { id: "5", image: "/item5.png" }
-      ]
+      ],
+      
     },
     {
       slug: "Granite-dining-table",

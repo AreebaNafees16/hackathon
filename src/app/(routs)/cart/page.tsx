@@ -281,12 +281,6 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { SlArrowRight } from 'react-icons/sl';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { GrTrophy } from 'react-icons/gr';
-import { GoVerified } from 'react-icons/go';
-import { FaShippingFast } from 'react-icons/fa';
-import { RiCustomerService2Fill } from 'react-icons/ri';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
@@ -295,15 +289,16 @@ import Feature from '@/app/components/feature';
 
 interface Product {
     _id: string;
-    title: string;
+    name: string;
     description: string;
     price: number;
-    images: string;
+    discounrtPercentage: number;
+    image: string;
     slug: { current: string };
     quantity: number;
   }
   
-  export default function CartPage() {
+  export default function CartPage () {
       const [quantity, setQuantity] = useState<number>(0);
     const [sanityData, setSanityData] = useState<Product[]>([]);
     const [cart, setCart] = useState<string[]>([]);
@@ -314,10 +309,11 @@ interface Product {
       const fetchData = async () => {
         const query = `*[_type == "product"]{
           _id,
-          title,
+          name,
           description,
           price,
-          "images": images.asset->url,
+          discountPercntage,
+          "image": image.asset->url,
           slug
           
         }`;
@@ -369,6 +365,8 @@ interface Product {
   };
 
 
+  
+  
 
 return (
         // <div className="max-w-[1440px] mx-auto overflow-hidden">
@@ -418,20 +416,20 @@ return (
   className="py-4 flex flex-wrap items-center justify-between gap-2 border-b border-gray-200"
 >
   {/* Product Image and Title */}
-  <div className="flex items-center flex-1 min-w-[200px] space-x-8">
-    <div className="w-[80px] h-[80px] bg-[#FBEBB5] rounded-lg flex-shrink-0">
-      {item.images && (
+  <div className="flex items-center flex-1 space-x-5">
+    <div className="w-[100px] h-[80px] rounded-lg">
+      {item.image && (
         <Image
-          src={urlFor(item.images).url()}
-          alt={item.title}
+          src={urlFor(item.image).url()}
+          alt={item.name}
           width={300}
           height={300}
-          className="rounded-lg object-scale-down w-full h-full"
+          className="rounded-lg w-full h-full"
         />
       )}
     </div>
   
-    <span className=" text-gray-600 text-sm md:text-base">{item.title}</span>
+    <span className=" text-gray-600 text-sm md:text-base">{item.name}</span>
     </div>
   {/* <button
     onClick={() => removeFromCart(item._id)}
@@ -452,14 +450,25 @@ return (
   <span className="text-gray-600 text-sm md:text-base text-center min-w-[50px]">
     {item.quantity}
   </span>
+  <div className="gap-3 flex-1">
+                                            <h1 className="font-[600] md:text-[22px] text-base leading-[30px] text-amber-400">
+                                                Rs. {item.price}
+                                            </h1>
+                                            <h1 className="font-[400] text-[18px]  text-gray-500">
+                                               -{item.discounrtPercentage}%
+                                            </h1>
+                                        </div>
   
-  <div className='flex-1 items-center'>
-    <span className=" text-gray-600 text-sm md:text-base min-w-[10] text-center">
-    Rs. {item.price}
-  </span>
-  </div>
+  {/* <div className='flex-1 items-center'>
+     <span className=" text-gray-600 text-sm md:text-base min-w-[10] text-center">
+   Rs. {item.quantity}
+   </span>
+  </div> */}
   <div className='flex-1'>
   <div className="flex items-center  h-10 p-1 rounded-lg  transition-all duration-300 ">
+
+
+  
   <button
                   onClick={decrement}
 

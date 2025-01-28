@@ -1,6 +1,6 @@
 export default {
-    name: 'products',
-    title: 'Products',
+    name: 'product',
+    title: 'Product',
     type: 'document',
     fields: [
       {
@@ -17,9 +17,13 @@ export default {
         name: 'image',
         title: 'Image',
         type: 'image',
-        options: {
-          hotspot: true,
-        },
+        
+      },
+      {
+        name: 'imagePath',
+        title: 'Image Path',
+        type: 'url',
+        
       },
       {
         name: 'price',
@@ -51,6 +55,16 @@ export default {
         title: 'Category',
         type: 'string',
       },
+      {
+          name: 'slug',
+           title: 'Slug',
+          type: 'slug',
+          options: {
+            source: 'name',
+            maxLength: 16,          
+           },
+          validation: (Rule: { required: () => any; }) => Rule.required(),
+          }
     ],
   }
       // New fields

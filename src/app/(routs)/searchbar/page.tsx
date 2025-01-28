@@ -144,10 +144,10 @@ const SearchProducts = () => {
     const fetchProducts = async () => {
       const query = `*[_type == "product"]{
         _id,
-        title,
+        name,
         price,
         tags,
-        images
+        image
       }`;
       try {
         const productsData = await client.fetch(query);
@@ -164,7 +164,7 @@ const SearchProducts = () => {
   // Filter products based on the search term
   const filteredProducts =
     products?.filter((product) => {
-      const nameMatches = product.title
+      const nameMatches = product.name
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
       const tagsMatch = product.tags?.some((tag: string) =>
@@ -184,7 +184,7 @@ const SearchProducts = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search products by name or tags..."
-          className="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
       </div>
 
@@ -202,10 +202,10 @@ const SearchProducts = () => {
             >
               {/* Product Image */}
               <div className="w-full h-48 mb-4">
-                {product.images ? (
+                {product.image ? (
                   <Image
-                    src={urlFor(product.images).url()}
-                    alt={product.title}
+                    src={urlFor(product.image).url()}
+                    alt={product.name}
                     height={192}
                     width={192}
                     className="w-full h-full rounded-lg"
@@ -216,7 +216,7 @@ const SearchProducts = () => {
               </div>
 
               {/* Product Name and Price */}
-              <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
+              <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
               <p className="text-gray-500">Rs. {product.price}</p>
 
               {/* Product Tags */}

@@ -197,9 +197,10 @@ import { AiOutlineRight } from "react-icons/ai";
 
 interface Product {
   _id: string;
-  title: string;
+  name: string;
   price: number;
-  images: { asset: { _ref: string } };
+  discountPercentage: number;
+  image: { asset: { _ref: string } };
 }
 
 
@@ -215,9 +216,10 @@ const WishlistPage = () => {
       if (wishlistIds.length > 0) {
         const query = `*[_type == "product" && _id in $ids]{
           _id,
-          title,
+          name,
           price,
-          images
+          image,
+          discountPercentage
         }`;
         const products = await client.fetch(query, { ids: wishlistIds });
         setWishlist(products);
@@ -277,22 +279,34 @@ const WishlistPage = () => {
               className="border rounded-lg flex items-center p-2 shadow-sm hover:shadow-md transition-shadow"
             >
                  {/* Product Image */}
-              <div className="w-1/2 md:w-1/2">
+              <div className="w-[80px] h-[80px] rounded-lg">
               <Image
-                src={urlFor(product.images).url()}
-                alt={product.title}
+                src={urlFor(product.image).url()}
+                alt={product.name}
                 height={200}
                 width={200}
-                className="rounded-lg "
+                className="rounded-lg w-full h-full"
               />
               </div>
                  {/* Product Details */}
                  <div className="flex-1 ml-4">
                  <div className="flex items-center text-lg font-medium md:space-x-52">
-              <h2 className="text-lg font-medium ">{product.title}</h2>
-            
-              <p className="text-gray-600">Rs. {product.price}.00</p>
+              <h2 className="text-lg font-medium">{product.name}</h2>
+              
+              <div className="flex gap-3">
+                                            <h1 className="font-[600] text-base text-amber-400">
+                                                Rs. {product.price}
+                                            </h1>
+                                            <h1 className="font-[400] text-[18px]  text-gray-500">
+                                               -{product.discountPercentage}%
+                                            </h1>
+                                        </div>
+                                      
+{/*             
+              <p className="text-gray-600">${product.price}.00</p> */}
+              
               </div>
+              
               <button
                 onClick={() => removeFromWishlist(product._id)}
                 className="mt-4 flex items-center text-red-500 hover:underline"

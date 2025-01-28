@@ -1,32 +1,34 @@
 "use client"
 import Link from 'next/link';
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, Suspense, } from 'react';
 import Image from 'next/image';
 import { BsBagX, BsFacebook } from 'react-icons/bs';
-import { FaLinkedin, FaStar, FaStarHalf } from 'react-icons/fa';
+import { FaHeart, FaLinkedin, FaRegHeart, FaStar, FaStarHalf } from 'react-icons/fa';
 import { AiOutlineRight } from 'react-icons/ai';
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { RxHeart, RxHeartFilled } from 'react-icons/rx';
-import { MdCancel } from 'react-icons/md';
+
 import Feature from '@/app/components/feature';
-import { notFound } from 'next/navigation';
-import Related from '@/app/components/related';
-import { products } from '@/app/productdata/products'
-import ProductOptionsSelector from '@/app/components/size';
-import ProductDetails from '@/app/components/info/info';
-import { renderStars } from '@/app/components/rating';
+
+
 import {client} from "@/sanity/lib/client"
 import { urlFor } from '@/sanity/lib/image';
-import product from '@/app/components/product';
+import product from '@/sanity/schemaTypes/product';
+import { CiHeart } from 'react-icons/ci';
+import QuantitySelector from '@/app/components/counter';
+import Related from '@/app/components/related';
+
 
 
 
 interface Product {
   _id: string;
-  title: string;
+  name: string;
   description: string;
+  category: string;
   price: number;
-  images: { asset: { _ref: string } };
+  discountPercentage: number;
+  image: { asset: { _ref: string } };
 }
 
 interface PageProps {
@@ -34,9 +36,12 @@ interface PageProps {
       slug: string; // Specify the type of slug
   };
 }
+
+
 export default function productPage({ params }: PageProps) {
+  
 // export default async function productPage({ params }: { params: { id: string } }) {
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
   // const [quantity, setQuantity] = useState<number>(1);
 const [productData, setProductData] = useState<Product | null>(null);
 const [wishlist, setWishlist] = useState<string[]>([]);
@@ -44,14 +49,18 @@ const [wishlist, setWishlist] = useState<string[]>([]);
 useEffect(() => {
     const fetchProduct = async () => {
         const query = `*[_type == "product" && slug.current == $slug]{
+        
     _id,
-    title,
+    name,
     description,
     price,
-    images,
+    discountPercentage,
+    category,
+    image,
     slug
   }`;
 
+  // const product = await client.fetch(query, { slug: params.id });
         const product = await client.fetch(query, { slug: params.slug });
         setProductData(product[0]);
     };
@@ -170,19 +179,24 @@ if (!productData) {
   // const [quantity, setQuantity] = useState<number>(0);
 
   const increment = () => setQuantity((prev) => prev + 1); // Increase the value
-  const decrement = () => setQuantity((prev) => Math.max(0, prev - 1)); // Decrease the value, prevent going below 1
+  const decrement = () => setQuantity((prev) => Math.max(1, prev - 1)); // Decrease the value, prevent going below 1
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     setQuantity(value >= 1 ? value : 1); // Ensure value is at least 1
   };
 
+// Handler for quantity change
+const handleQuantityChange = (newQuantity: number) => {
+  setQuantity(newQuantity);
+};
 
   return (
 
     <div className="w-full">
       
       {/* Header Section */}
+      
 
       <div className="relative z-10 w-[1440px] sm:h-[100px] h-[100px] mx-auto flex items-center justify-start bg-white px-6 lg:px-20">
 
@@ -198,9 +212,11 @@ if (!productData) {
           </Link>
           <span>|</span>
           {/* <AiOutlineRight /> */}
-          <span className="font-md text-black">{productData.title}</span>
+          <span className="font-md text-black">{productData.name}</span>
         </div>
+        
       </div>
+      
       
       <div className="max-w-screen-2xl container mx-auto pb-8 px-4">
         
@@ -216,53 +232,53 @@ if (!productData) {
             
     <div
       
-      className="flex justify-center items-center md:w-[76px] md:h-[78px] w-[60px] h-[60px] bg-[#FFF9E5] rounded-lg"
+      className="flex justify-center md:w-[56px] md:h-[68px] w-[60px] h-[60px]"
     >
       <Image
-        src={urlFor(productData.images).url()}
+        src={urlFor(productData.image).url()}
         alt="p"
         height={300}
         width={500}
-        className="object-contain mb-5"
+        className="rounded-lg"
       />
       
     </div>
     <div
       
-      className="flex justify-center items-center md:w-[76px] md:h-[78px] w-[60px] h-[60px] bg-[#FFF9E5] rounded-lg"
+      className="flex justify-center md:w-[56px] md:h-[68px] w-[60px] h-[60px]"
     >
       <Image
-        src={urlFor(productData.images).url()}
+        src={urlFor(productData.image).url()}
         alt="p"
         height={300}
         width={500}
-        className="object-contain mb-5"
+        className="rounded-lg"
       />
       
     </div>
     <div
     
-      className="flex justify-center items-center md:w-[76px] md:h-[78px] w-[60px] h-[60px] bg-[#FFF9E5] rounded-lg"
+      className="flex justify-center md:w-[56px] md:h-[68px] w-[60px] h-[60px]"
     >
       <Image
-        src={urlFor(productData.images).url()}
+        src={urlFor(productData.image).url()}
         alt="p"
         height={300}
         width={500}
-        className="object-contain mb-5"
+        className="rounded-lg"
       />
       
     </div>
     <div
       
-      className="flex justify-center items-center md:w-[76px] md:h-[78px] w-[60px] h-[60px] bg-[#FFF9E5] rounded-lg"
+      className="flex justify-center md:w-[56px] md:h-[68px] w-[60px] h-[60px]"
     >
       <Image
-        src={urlFor(productData.images).url()}
+        src={urlFor(productData.image).url()}
         alt="p"
         height={300}
         width={500}
-        className="object-contain mb-5"
+        className="rounded-lg"
       />
       
     </div>
@@ -270,11 +286,11 @@ if (!productData) {
             </div> 
 
             {/* Medium Image */}
-            <div className="rounded-lg flex justify-center items-center md:w-[400px] md:h-[450px] w-[300px] h-[350px] bg-[#FFF9E5] md:mt-3 pr-">
+            <div className="rounded-lg flex justify-center items-center md:w-[350px] md:h-[390px] w-[300px] h-[350px] bg-[#FFF9E5] md:mt-3 pr-">
             <img
-            src={urlFor(productData.images).url()}
+            src={urlFor(productData.image).url()}
             alt="product"
-            className="w-full h-auto rounded-lg"
+            className="w-full h-full rounded-lg"
           />
              
             </div>
@@ -282,8 +298,16 @@ if (!productData) {
 
           {/* Right Column */}
           <div>
-            <h3 className="text-3xl mb-4 font-medium">{productData.title}</h3>
-            <p className="text-2xl text-gray-500">Rs. {productData.price}.00</p>
+            <h3 className="text-3xl mb-4 font-medium">{productData.name}</h3>
+            <div className="flex gap-3">
+                                            <h1 className="text-2xl text-gray-500">
+                                                Rs. {productData.price}
+                                            </h1>
+                                            <h1 className="font-[400] text-[18px]  text-gray-500">
+                                               -{productData.discountPercentage}%
+                                            </h1>
+                                        </div>
+            {/* <p className="text-2xl text-gray-500">Rs. {productData.price}.00</p> */}
             <div className="flex items-center space-x-2 mt-2">
             <div className="flex items-center space-x-2">
             <div className="flex justify-center items-center gap-[20px] mt-2">  
@@ -303,7 +327,7 @@ if (!productData) {
               <span className="text-[#9F9F9F] text-2xl">|</span>
               <span className="text-[#9F9F9F] pl-4">5 Customer Reviews</span>
             </div>
-            <p className="mt-4 text-gray-700 md:text-base text-sm">
+            <p className="mt-4 text-gray-700 md:text-base text-xs">
           {productData.description}
              
               
@@ -315,7 +339,7 @@ if (!productData) {
 
             <div className="flex items-center gap-4 mt-6 mb-5">
            
-              <div className="flex items-center border  h-12 p-2 gap-4 rounded-lg  transition-all duration-300 hover:outline hover:outline-2 hover:outline-black">
+              <div className="flex items-center">
               {/* <button
                   onClick={decrementQuantity}
                   className="px-4 py-2 bg-gray-300 rounded-md"
@@ -335,7 +359,7 @@ if (!productData) {
                   +
                 </button> */}
 
-                <button
+                {/* <button
                   onClick={decrement}
 
                 >
@@ -352,18 +376,39 @@ if (!productData) {
 
                 >
                   +
-                </button>
+                </button> */}
+                 <QuantitySelector
+                  initialQuantity={quantity}
+                  onQuantityChange={handleQuantityChange}
+                />
+
+
               </div>
               
               <button
                 onClick={() => addToCart(productData._id)}
-                className="bg-primary text-black border rounded-md px-8 py-3 transition-all duration-300 hover:outline hover:outline-2 hover:outline-black">
+                className="bg-primary text-black border rounded-md md:px-8 md:py-3  transition-all duration-300 hover:outline hover:outline-2 hover:outline-black">
                 Add To Cart
               </button>
+              <button
+                onClick={() => toggleWishlist(productData._id)}
+                className="flex items-center justify-cente border rounded-md px-3 py-3 bg-primmary text-red-500"
+              >
+                {wishlist.includes(productData._id) ? (
+                  <FaHeart size={20} />
+                ) : (
+                  <CiHeart size={25} />
+                )}
+              </button>
+              <span>
+                {wishlist.includes(productData._id)
+                  ? "Added to Wishlist"
+                  : "Add to Wishlist"}
+              </span>
 
               {/* Popup Message */}
       {showPopup && (
-        <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg animate-slide-in">
+        <div className="fixed bottom-4 right-4 bg-amber-400 text-black px-4 py-2 rounded shadow-lg animate-slide-in">
           Product added to cart!
         </div>
       )}
@@ -382,7 +427,7 @@ if (!productData) {
             <div className="flex justify mb-2 text-[#9F9F9F]">
               <span>Category</span>
               <span className='ml-2'>:</span>
-              <span className='ml-2'>Furniture</span>
+              <span className='ml-2'>{productData.category}</span>
             </div>
             <div className="flex justify mb-2 text-[#9F9F9F]">
               <span>Tags</span>
@@ -398,7 +443,7 @@ if (!productData) {
                 <AiFillTwitterCircle size={19} className="text-black cursor-pointer" />
                 <span className="flex items-center gap-4">
               {/* Wishlist Button */}
-              <button
+              {/* <button
                 onClick={() => toggleWishlist(productData._id)}
                 className="flex items-center justify-center text-red-500 scale-110 md:ml-40"
               >
@@ -412,7 +457,7 @@ if (!productData) {
                 {wishlist.includes(productData._id)
                   ? "Added to Wishlist"
                   : "Add to Wishlist"}
-              </span>
+              </span> */}
             </span>
                
               </span>
@@ -455,20 +500,20 @@ if (!productData) {
 
         </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg md:ml-24 ml-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4 rounded-lg md:ml-52 ml-0">
   <Image
-    src={urlFor(productData.images).url()}
+    src={urlFor(productData.image).url()}
     alt="Furniture Image 1"
     height={400}
     width={400}
-    className="rounded-lg md:w-[505px] md:h-[448px] bg-[#FFF9E5]"
+    className="rounded-lg md:w-[405px] md:h-[448px]"
   />
   <Image
-    src={urlFor(productData.images).url()}
+    src={urlFor(productData.image).url()}
     alt="Furniture Image 2"
     height={400}
     width={400}
-    className="rounded-lg md:w-[505px] md:h-[448px] bg-[#FFF9E5]"
+    className="rounded-lg md:w-[405px] md:h-[448px]"
   />
 </div>
 
