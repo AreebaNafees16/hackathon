@@ -34,7 +34,7 @@ export default function ShopPage() {
       <Filter />
       
       {/* Products Grid */}
-    <Product />
+    {/* <Product /> */}
 
     
       {/* Pagination */}
