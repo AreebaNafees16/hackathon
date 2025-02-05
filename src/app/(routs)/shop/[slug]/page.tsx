@@ -1,27 +1,18 @@
 "use client"
 import Link from 'next/link';
-import React, { useState, useEffect, Suspense, } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { BsBagX, BsFacebook } from 'react-icons/bs';
 import { FaHeart, FaLinkedin, FaRegHeart, FaStar, FaStarHalf } from 'react-icons/fa';
 import { AiOutlineRight } from 'react-icons/ai';
 import { AiFillTwitterCircle } from "react-icons/ai";
-import { RxHeart, RxHeartFilled } from 'react-icons/rx';
-
 import Feature from '@/app/components/feature';
-
-
 import {client} from "@/sanity/lib/client"
 import { urlFor } from '@/sanity/lib/image';
 import product from '@/sanity/schemaTypes/product';
 import { CiHeart } from 'react-icons/ci';
 import QuantitySelector from '@/app/components/counter';
 import Related from '@/app/components/related';
-import { useCart } from '@/context/cartContext';
-import { useRouter } from 'next/navigation';
-
-
-
 
 interface Product {
   _id: string;
