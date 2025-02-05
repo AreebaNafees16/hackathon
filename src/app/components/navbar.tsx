@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import { PiAppStoreLogo } from "react-icons/pi";
 import { BsPerson } from "react-icons/bs";
 import { IoCartOutline, IoHeartOutline, IoSearchOutline } from "react-icons/io5";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+
 
 
 export default function Navbar() {
+  const { isSignedIn } = useUser();
   const [cartCount, setCartCount] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname(); // Get the current pathname
@@ -82,7 +85,12 @@ useEffect(() => {
         </div>
 
         {/* Navigation Links for Desktop */}
-        <ul className="hidden sm:flex space-x-10 text-xl font-medium">
+        <ul className="hidden sm:flex space-x-8 text-xl font-medium">
+        {/* <li>
+            <Link href="admin" className="hover:text-blue-500 cursor-pointer">
+              Home
+            </Link>
+          </li> */}
           <li>
             <Link href="/" className="hover:text-blue-500 cursor-pointer">
               Home
@@ -107,9 +115,21 @@ useEffect(() => {
 
         {/* Icons */}
         <div className="flex 1 lg:gap-4 md:space-x-5 space-x-1 text-2xl text-black lg:mr-10">
-        <Link href='/myaccount'>
-          <BsPerson size={30} className="hover:text-blue-500 cursor-pointer font-bold" />
-          </Link>
+        {/* <Link href='/myaccount'> */}
+        {/* <div>
+          <BsPerson size={30} className="hover:text-blue-500 cursor-pointer font-bold" /> */}
+          {/* </Link> */}          
+          {/* </div> */}
+          {/* {isSignedIn ? (
+        <UserButton afterSignOutUrl="/" />
+      ) : (
+        <SignInButton>
+          <BsPerson
+            size={30}
+            className="hover:text-blue-500 cursor-pointer font-bold"
+          />
+        </SignInButton>
+      )} */}
           <Link href='/searchbar'>
           <IoSearchOutline size={30} className="hover:text-blue-500 cursor-pointer" />
           </Link>
@@ -129,7 +149,18 @@ useEffect(() => {
          
           </span>
           </Link>
-          
+          <div className="flex items-center">
+      {isSignedIn ? (
+        <UserButton afterSignOutUrl="/" />
+      ) : (
+        <SignInButton>
+          <BsPerson
+            size={30}
+            className="hover:text-blue-500 cursor-pointer font-bold"
+          />
+        </SignInButton>
+      )}
+    </div>
         </div>
       </div>
 
@@ -167,6 +198,7 @@ useEffect(() => {
           <li>
             <Link href="/contact" className="hover:text-blue-500 cursor-pointer">
               Contact
+              
             </Link>
           </li>
         </ul>

@@ -207,6 +207,8 @@ interface Product {
 
 
 const WishlistPage = () => {
+
+  
   const [wishlist, setWishlist] = useState<Product[]>([]);
 
   // Fetch wishlist products from localStorage

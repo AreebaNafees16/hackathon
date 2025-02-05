@@ -306,9 +306,11 @@ export default function CheackOut() {
           </div>
           <p className="text-sm font-light text-black mt-6 tracking-wider">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <span className="font-bold text-black">privacy policy. </span></p>
           <div className="flex justify-center">
+            <Link href='/shipment'>
             <button className="mt-6 border border-black py-3 px-14 rounded-xl text-cente hover:bg-gray-700 hover:text-white transition-colors duration-300">
               Place Order
             </button>
+            </Link>
           </div>
         </div>
       </div>

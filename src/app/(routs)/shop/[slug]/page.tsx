@@ -17,6 +17,8 @@ import product from '@/sanity/schemaTypes/product';
 import { CiHeart } from 'react-icons/ci';
 import QuantitySelector from '@/app/components/counter';
 import Related from '@/app/components/related';
+import { useCart } from '@/context/cartContext';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -39,10 +41,18 @@ interface PageProps {
 
 
 export default function productPage({ params }: PageProps) {
+
   
 // export default async function productPage({ params }: { params: { id: string } }) {
-  const [quantity, setQuantity] = useState<number>(1);
   // const [quantity, setQuantity] = useState<number>(1);
+  // const [quantity, setQuantity] = useState<number>(1);
+  
+  const [quantity, setQuantity] = useState(1);  // Set initial quantity
+
+
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+};
 const [productData, setProductData] = useState<Product | null>(null);
 const [wishlist, setWishlist] = useState<string[]>([]);
 
@@ -72,12 +82,18 @@ const [cartCount, setCartCount] = useState(0);
 const [showPopup, setShowPopup] = useState(false);
 
 
-useEffect(() => {
-  // Initialize cart count from localStorage
-  const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-  setCartCount(savedCart.length);
-}, []);
+// useEffect(() => {
+//   // Initialize cart count from localStorage
+//   const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+//   setCartCount(savedCart.length);
+// }, []);
 
+// const [quantity, setQuantity] = useState(1);
+
+// const handleQuantityChange = (e: { target: { value: string; }; }) => {
+//   const value = Math.max(1, parseInt(e.target.value) || 1);
+//   setQuantity(value);
+// };
 
 
 const addToCart = (id: string) => {
@@ -85,7 +101,8 @@ const addToCart = (id: string) => {
     
     const updatedCart = [...savedCart, id];
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-    
+    const cartItem = { ...product, quantity };
+    console.log("Adding to cart:", cartItem);
     
 
     setCartCount(updatedCart.length);
@@ -93,15 +110,86 @@ const addToCart = (id: string) => {
     // Update the cart count
     setShowPopup(true); 
     
-    // Show the popup
-    // alert('Product added to cart!');
-     // Hide the popup after 3 seconds
-
-
      setTimeout(() => {
       setShowPopup(false);
     }, 3000);
 };
+
+
+
+
+
+
+
+
+// const addToCart = (id: string, quantity: number) => {
+//   // Retrieve the existing cart from localStorage
+//   const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+//   console.log('Saved Cart:', savedCart);
+
+//   // Check if the product already exists in the cart
+//   const existingProductIndex = savedCart.findIndex((item: any) => item.id === id);
+
+//   if (existingProductIndex > -1) {
+//       // If product is already in the cart, increase the quantity
+//       savedCart[existingProductIndex].quantity += quantity;
+//   } else {
+//       // If product is not in the cart, add it with the initial quantity
+//       savedCart.push({ id, quantity });
+//   }
+
+//   // Store the updated cart back in localStorage
+//   localStorage.setItem('cart', JSON.stringify(savedCart));
+//   console.log('Updated Cart:', savedCart);
+
+//   // Update the cart count (total items, not just distinct products)
+//   setCartCount(savedCart.reduce((acc: any) => acc + acc.quantity, 0));
+
+//   // Show popup for a short duration
+//   setShowPopup(true);
+//   setTimeout(() => {
+//       setShowPopup(false);
+//   }, 3000);
+
+//   console.log("Adding to cart:", { id, quantity });
+// };
+
+
+// const updateCartQuantity = (id: string) => {
+//   try {
+//       // Retrieve cart from localStorage
+//       let savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+//       // Ensure savedCart is an array
+//       if (!Array.isArray(savedCart)) {
+//           savedCart = [];
+//       }
+
+//       // Find the product in the cart
+//       const existingItemIndex = savedCart.findIndex((item: { id: string }) => item.id === id);
+
+//       if (existingItemIndex !== -1) {
+//           // If the item exists, increase its quantity
+//           savedCart[existingItemIndex].quantity += 1;
+
+//           // Save updated cart back to localStorage
+//           localStorage.setItem("cart", JSON.stringify(savedCart));
+
+//           // Debugging: Log updated cart
+//           console.log("Updated Cart:", savedCart);
+
+//           // Update cart count based on total quantity
+//           const totalQuantity = savedCart.reduce((total: number, item: { quantity: number }) => total + item.quantity, 0);
+//           setCartCount(totalQuantity);
+//       } else {
+//           console.warn("Product not found in cart!");
+//       }
+//   } catch (error) {
+//       console.error("Error updating cart quantity:", error);
+//   }
+// };
+
+
 
 
   // Initialize wishlist from localStorage
@@ -178,18 +266,18 @@ if (!productData) {
 
   // const [quantity, setQuantity] = useState<number>(0);
 
-  const increment = () => setQuantity((prev) => prev + 1); // Increase the value
-  const decrement = () => setQuantity((prev) => Math.max(1, prev - 1)); // Decrease the value, prevent going below 1
+  // const increment = () => setQuantity((prev) => prev + 1); // Increase the value
+  // const decrement = () => setQuantity((prev) => Math.max(1, prev - 1)); // Decrease the value, prevent going below 1
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(event.target.value);
-    setQuantity(value >= 1 ? value : 1); // Ensure value is at least 1
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = Number(event.target.value);
+  //   setQuantity(value >= 1 ? value : 1); // Ensure value is at least 1
+  // };
 
-// Handler for quantity change
-const handleQuantityChange = (newQuantity: number) => {
-  setQuantity(newQuantity);
-};
+
+
+
+
 
   return (
 
@@ -381,15 +469,27 @@ const handleQuantityChange = (newQuantity: number) => {
                   initialQuantity={quantity}
                   onQuantityChange={handleQuantityChange}
                 />
+{/* Quantity Selector */}
+{/* <div className="flex items-center space-x-2 mt-4"> */}
+        
+      {/* </div> */}
 
 
               </div>
               
               <button
+              
                 onClick={() => addToCart(productData._id)}
-                className="bg-primary text-black border rounded-md md:px-8 md:py-3  transition-all duration-300 hover:outline hover:outline-2 hover:outline-black">
+                className="bg-primary text-black border rounded-md md:px-8 md:py-3  transition-all duration-300 hover:outline hover:outline-2 hover:outline-black"
+               
+                
+                >
                 Add To Cart
               </button>
+              {/* <button onClick={() => updateCartQuantity(productData._id)}>
+  Increase Quantity
+</button> */}
+
               <button
                 onClick={() => toggleWishlist(productData._id)}
                 className="flex items-center justify-cente border rounded-md px-3 py-3 bg-primmary text-red-500"

@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="bg-[#FBEBB5] w-full md:h-[750px] h-[800px] flex items-center justify-center pt-14">
+    <section className="bg-[#FBEBB5] w-full md:h-[750px] h-[750px] flex items-center justify-center pt-14">
       <div className="container mx-auto max-w-[1440px] flex flex-col lg:flex-row items-center">
         {/* Left Content */}
         <div className="flex-1 px-4 sm:px-8 md:px-12 lg:pl-[150px] text-center lg:text-left">
@@ -21,7 +21,8 @@ export default function Hero() {
           <img
             src="/sofa.png"
             alt="Hero Section"
-            className="md:w-full md:h-auto h-[600px] w-[500px] rounded-lg "
+              className="w-full md:w-[90%] lg:w-[100%] h-[400px] md:h-[450px] lg:h-[500px] object-cover mx-auto"
+            // className="md:w-[95%] w-[100%] md:h-auto h-[500px]"
           />
         </div>
       </div>
